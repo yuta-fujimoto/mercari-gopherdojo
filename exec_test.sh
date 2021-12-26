@@ -13,9 +13,10 @@ find test/jpgToGif -name "*.gif" | xargs rm;
 find test/gifToJpg -name "*.jpg" | xargs rm;
 rm test/42tokyo_logo.png
 
-mkdir -p test/NoPermDir
-cp images/42tokyo_logo.jpg test/NoPermDir/sub/
-chmod 000 test/NoPermDir/sub/42tokyo_logo.jpg
+mkdir -p test/NoPermFile
+mkdir -p test/NoPermFile/sub
+cp images/42tokyo_logo.jpg test/NoPermFile/sub/
+chmod 000 test/NoPermFile/sub/42tokyo_logo.jpg
 
 mkdir -p test/NoPermDir
 chmod 000 test/NoPermDir
@@ -110,8 +111,8 @@ printf "${RED}[INVALID OPTION FORMAT(-o)]${RESET}\n"
 printf "${RED}[I/O FILE FORMATS ARE SAME]${RESET}\n"
 ./convert -i=jpg -o=jpg test/NotImageErr/42tokyo_logo.jpg
 
-chmod 755 test/NoPermDir/sub/42tokyo_logo.jpg
-rm -rf test/NoPermDir
+chmod 755 test/NoPermFile/sub/42tokyo_logo.jpg
+rm -rf test/NoPermFile
 
 chmod 755 test/NoPermDir
 rm -rf test/NoPermDir
