@@ -109,3 +109,9 @@ printf "${RED}[INVALID OPTION FORMAT(-o)]${RESET}\n"
 
 printf "${RED}[I/O FILE FORMATS ARE SAME]${RESET}\n"
 ./convert -i=jpg -o=jpg test/NotImageErr/42tokyo_logo.jpg
+
+chmod 755 test/NoPermDir/sub/42tokyo_logo.jpg
+rm -rf test/NoPermDir
+
+chmod 755 test/NoPermDir
+rm -rf test/NoPermDir
