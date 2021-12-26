@@ -1,5 +1,10 @@
 package convertImage
 
+import (
+	"fmt"
+	"strings"
+)
+
 // valid image format(PGM is for output only)
 const (
 	JPEG = ".jpg"
@@ -15,4 +20,12 @@ type Params struct {
 	Inform  string
 	Outform string
 	Size    int
+}
+
+func getError(err error) error {
+	newErrorMsg := err.Error()
+	if strings.Contains(err.Error(), " ") {
+		newErrorMsg = "error:" + err.Error()[strings.Index(err.Error(), " "):]
+	}
+	return fmt.Errorf("%s", newErrorMsg)
 }

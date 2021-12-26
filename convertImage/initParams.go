@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 func initParams(arg string, inForm string, outForm string) (Params, error) {
@@ -94,12 +93,4 @@ func confirmFileCondition(fileName string, format string, dirErr error) ([]strin
 		return nil, fmt.Errorf("error: %s is not a valid file", fileName)
 	}
 	return []string{fileName}, nil
-}
-
-func getError(err error) error {
-	newErrorMsg := err.Error()
-	if strings.Contains(err.Error(), " ") {
-		newErrorMsg = "error:" + err.Error()[strings.Index(err.Error(), " "):]
-	}
-	return fmt.Errorf("%s", newErrorMsg)
 }
