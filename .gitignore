@@ -1,0 +1,7 @@
+result.txt
+images/*.png
+images/*.pgm
+go.sum
+convert
+NoPermFile
+NoPermDir
