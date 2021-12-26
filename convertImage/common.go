@@ -2,7 +2,7 @@ package convertImage
 
 import "os"
 
-// valid image format(PGN is for output)
+// valid image format(PGN is for output only)
 const (
 	JPEG = ".jpg"
 	PNG  = ".png"

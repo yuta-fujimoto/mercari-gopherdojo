@@ -1,6 +1,6 @@
 /*
-Package convert enables to convert between JPEG and PNG. Also, it can make black/white image(PGM) from
-color image(JPEG, PNG).
+Package convert enables to convert between JPEG and PNG, GIF. Also, it can make black/white image(PGM) from
+color image(JPEG, PNG, GIF).
 */
 package convertImage
 
@@ -17,7 +17,7 @@ import (
 )
 
 /*
-Convert all image files in directory specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage prints appropriate error messages and calls exit. Format .jpg .png .pgm are ignored even if they are not assigned as argument.
+Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. unnecessary format .jpg .png .pgm .gif are ignored if arg is specified as directory.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
