@@ -17,7 +17,7 @@ import (
 )
 
 /*
-Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. unnecessary format .jpg .png .pgm .gif are ignored if arg is specified as directory.
+Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary format .jpg .png .pgm .gif are ignored if arg is specified as directory.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
