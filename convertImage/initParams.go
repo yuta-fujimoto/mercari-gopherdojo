@@ -35,7 +35,7 @@ func initParams(arg string, inForm string, outForm string) (Params, error) {
 	return params, nil
 }
 
-func setFileFormat(inForm , outForm string) (string, string, error) {
+func setFileFormat(inForm, outForm string) (string, string, error) {
 	var newForm [2]string
 
 	for i, form := range []string{inForm, outForm} {
@@ -64,7 +64,7 @@ func walkImageDir(dir string, form string) ([]string, error) {
 	if err != nil {
 		return confirmFileCondition(dir, form, err)
 	}
-	
+
 	var ImageFileNames []string
 	for _, file := range files {
 		searchPath := filepath.Join(dir, file.Name())
@@ -90,7 +90,7 @@ func walkImageDir(dir string, form string) ([]string, error) {
 
 func confirmFileCondition(fileName string, format string, dirErr error) ([]string, error) {
 	stat, err := os.Stat(fileName)
-	
+
 	if err != nil {
 		return nil, getError(err)
 	}

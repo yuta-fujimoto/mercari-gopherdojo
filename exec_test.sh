@@ -83,22 +83,22 @@ print_result "${GOT}" "${SRC}"
 printf "${RED}[NO COMMAND ARGS]${RESET}\n"
 ./convert
 
-printf "${RED}[NO DIRECTORY]${RESET}\n"
+printf "${RED}[NO SUCH DIRECTORY]${RESET}\n"
 ./convert nosuchdirectory
 
-printf "${RED}[NO FILE]${RESET}\n"
+printf "${RED}[NO SUCH FILE]${RESET}\n"
 ./convert nosuchfile.jpg
 
 printf "${RED}[NO PERM(FILE)]${RESET}\n"
 ./convert test/NoPermFile
 
-printf "${RED}[NO PERM(FILE)]${RESET}\n"
+printf "${RED}[NO PERM(DIR)]${RESET}\n"
 ./convert test/NoPermDir
 
-printf "${RED}[INVALID FILE FORMAT(DIR)]${RESET}\n"
+printf "${RED}[INVALID FILE FORMAT(test/NotImageErr)]${RESET}\n"
 ./convert test/NotImageErr
 
-printf "${RED}[INVALID FILE FORMAT(FILE)]${RESET}\n"
+printf "${RED}[INVALID FILE FORMAT(test/NotImageErr/notimage)]${RESET}\n"
 ./convert test/NotImageErr/notimage
 
 printf "${RED}[INVALID OPTION FORMAT(-i)]${RESET}\n"
