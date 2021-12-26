@@ -13,6 +13,11 @@ find test/jpgToGif -name "*.gif" | xargs rm;
 find test/gifToJpg -name "*.jpg" | xargs rm;
 rm test/42tokyo_logo.png
 
+
+if [ "$1" = "r" ]; then
+	exit 0
+fi
+
 mkdir -p test/NoPermFile
 mkdir -p test/NoPermFile/sub
 cp images/42tokyo_logo.jpg test/NoPermFile/sub/

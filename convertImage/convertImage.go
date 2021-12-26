@@ -21,38 +21,61 @@ Convert all image files in directory or filepath itself specified as string arg.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
-	defer func() {
-		for i := 0; i < len(params.Infile); i++ {
-			err = params.Infile[i].Close()
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "%s\n", err)
-			}
-			err = params.Outfile[i].Close()
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "%s\n", err)
-			}
-		}
-	}()
 	if err != nil {
 		return err
 	}
-	for i := 0; i < len(params.Infile); i++ {
-		img, _, err := image.Decode(params.Infile[i])
+	input := make([]*os.File, params.size)
+	output := make([]*os.File, params.size)
+
+	for i := 0; i < params.size; i++ {
+		input[i], err = os.Open(params.Infile[i])
+		if err != nil {
+			closeAllFiles(input, output, i, i)
+			return getError(err)
+		}
+		output[i], err = os.Create(params.Outfile[i])
+		if err != nil {
+			closeAllFiles(input, output, i+1, i)
+			return getError(err)
+		}
+	}
+	defer func() {
+		closeAllFiles(input, output, params.size, params.size)
+	}()
+	for i := 0; i < params.size; i++ {
+		img, _, err := image.Decode(input[i])
 		if err != nil {
 			return err
 		}
 		switch params.Outform {
 		case PNG:
-			png.Encode(params.Outfile[i], img)
+			png.Encode(output[i], img)
 		case JPEG:
-			jpeg.Encode(params.Outfile[i], img, &jpeg.Options{Quality: 100})
+			jpeg.Encode(output[i], img, &jpeg.Options{Quality: 100})
 		case GIF:
-			gif.Encode(params.Outfile[i], img, &gif.Options{NumColors: 256})
+			gif.Encode(output[i], img, &gif.Options{NumColors: 256})
 		case PGM:
-			pgmEncode(params.Outfile[i], img)
+			pgmEncode(output[i], img)
 		}
 	}
 	return nil
+}
+
+func closeAllFiles(input []*os.File, output []*os.File, inCnt int, outCnt int) {
+	var err error
+
+	for i := 0; i < inCnt; i++ {
+		err = input[i].Close()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+		}
+	}
+	for i := 0; i < outCnt; i++ {
+		err = output[i].Close()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "%s\n", err)
+		}
+	}
 }
 
 func pgmEncode(file *os.File, img image.Image) {
