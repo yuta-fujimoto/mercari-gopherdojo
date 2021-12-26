@@ -20,23 +20,11 @@ func initParams(arg string, inForm string, outForm string) (Params, error) {
 	if err != nil {
 		return Params{}, err
 	}
-	params.size = len(params.Infile)
+	params.Size = len(params.Infile)
 	params.Outfile = make([]string, len(params.Infile))
 	for i, file := range params.Infile {
 		params.Outfile[i] = file[:len(file)-len(filepath.Ext(file))] + params.Outform
 	}
-	// params.Infile = make([]*os.File, len(files))
-	// params.Outfile = make([]*os.File, len(files))
-	// for i, file := range files {
-	// 	params.Infile[i], err = os.Open(file)
-	// 	if err != nil {
-	// 		return Params{}, getError(err)
-	// 	}
-	// 	params.Outfile[i], err = os.Create(file[:len(file)-len(filepath.Ext(file))] + params.Outform)
-	// 	if err != nil {
-	// 		return Params{}, getError(err)
-	// 	}
-	// }
 	return params, nil
 }
 

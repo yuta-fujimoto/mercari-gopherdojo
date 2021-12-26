@@ -8,11 +8,11 @@ const (
 	GIF  = ".gif"
 )
 
-// ConvertImage at first opens all files and specifies formats to store them into Params
+// ConvertImage at first searches directory and specifies formats to store them into Params
 type Params struct {
 	Infile  []string
 	Outfile []string
 	Inform  string
 	Outform string
-	size    int
+	Size    int
 }

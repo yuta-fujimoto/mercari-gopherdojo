@@ -1,6 +1,6 @@
 /*
-Package convert enables to convert between JPEG and PNG, GIF. Also, it can make black/white image(PGM) from
-color image(JPEG, PNG, GIF).
+Package convert enables to convert between JPEG, PNG and GIF. Also, it can make monochrome image(PGM) from
+color image(JPEG, PNG and GIF).
 */
 package convertImage
 
@@ -17,17 +17,17 @@ import (
 )
 
 /*
-Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary format .jpg .png .pgm .gif are ignored if arg is specified as directory.
+Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary formats jpg, png, pgm and gif are ignored if arg is specified as directory.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
 	if err != nil {
 		return err
 	}
-	input := make([]*os.File, params.size)
-	output := make([]*os.File, params.size)
+	input := make([]*os.File, params.Size)
+	output := make([]*os.File, params.Size)
 
-	for i := 0; i < params.size; i++ {
+	for i := 0; i < params.Size; i++ {
 		input[i], err = os.Open(params.Infile[i])
 		if err != nil {
 			closeAllFiles(input, output, i, i)
@@ -40,9 +40,9 @@ func ConvertImage(arg string, inForm string, outForm string) error {
 		}
 	}
 	defer func() {
-		closeAllFiles(input, output, params.size, params.size)
+		closeAllFiles(input, output, params.Size, params.Size)
 	}()
-	for i := 0; i < params.size; i++ {
+	for i := 0; i < params.Size; i++ {
 		img, _, err := image.Decode(input[i])
 		if err != nil {
 			return err
