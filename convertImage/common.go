@@ -5,11 +5,12 @@ import (
 	"strings"
 )
 
-// valid image format(PGM is for output only)
+// valid image format(PGM, PPM are for output only)
 const (
 	JPEG = ".jpg"
 	PNG  = ".png"
 	PGM  = ".pgm"
+	PPM  = ".ppm"
 	GIF  = ".gif"
 )
 

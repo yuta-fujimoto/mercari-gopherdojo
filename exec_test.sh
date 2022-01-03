@@ -11,6 +11,7 @@ find test/pngToJpg -name "*.jpg" | xargs rm
 find test/pngToPgm -name "*.pgm" | xargs rm;
 find test/jpgToGif -name "*.gif" | xargs rm;
 find test/gifToJpg -name "*.jpg" | xargs rm;
+find test/jpgToPpm -name "*.ppm" | xargs rm;
 rm test/42tokyo_logo.png
 
 
@@ -75,6 +76,14 @@ printf "${GREEN}[GIF=>JPG(${DIR})]${RESET}\n"
 ./convert -i=gif -o=jpg test/${DIR}
 GOT=`find test/${DIR} -name "*.jpg" | xargs file`
 SRC=`find test/${DIR} -name "*.gif" | xargs file`
+
+print_result "${GOT}" "${SRC}"
+
+DIR=jpgToPpm
+printf "${GREEN}[JPG=>PPM(${DIR})]${RESET}\n"
+./convert -i=jpg -o=ppm test/${DIR}
+GOT=`find test/${DIR} -name "*.jpg" | xargs file`
+SRC=`find test/${DIR} -name "*.ppm" | xargs file`
 
 print_result "${GOT}" "${SRC}"
 

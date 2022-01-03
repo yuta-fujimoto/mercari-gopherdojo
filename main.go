@@ -9,7 +9,7 @@ import (
 
 func main() {
 	inForm := flag.String("i", "jpg", "input file format(jpg, png, gif)")
-	outForm := flag.String("o", "png", "output file format(jpg, png, gif, pgm)")
+	outForm := flag.String("o", "png", "output file format(jpg, png, gif, pgm, ppm)")
 	flag.Parse()
 	args := flag.Args()
 	if len(args) != 1 {

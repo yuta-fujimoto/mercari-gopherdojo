@@ -39,6 +39,8 @@ func setFileFormat(inForm, outForm string) (string, string, error) {
 			newForm[i] = JPEG
 		case form == PGM && i == 1:
 			newForm[i] = PGM
+		case form == PPM && i == 1:
+			newForm[i] = PPM
 		case form == GIF:
 			newForm[i] = GIF
 		default:
@@ -71,7 +73,7 @@ func walkImageDir(dir string, form string) ([]string, error) {
 		switch filepath.Ext(file.Name()) {
 		case form:
 			ImageFileNames = append(ImageFileNames, searchPath)
-		case JPEG, PNG, PGM, GIF:
+		case JPEG, PNG, PGM, PPM, GIF:
 			continue
 		default:
 			return nil, fmt.Errorf("error: %s is not a valid file", searchPath)

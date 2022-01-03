@@ -1,6 +1,7 @@
 result.txt
 images/*.png
 images/*.pgm
+images/*.ppm
 go.sum
 convert
 NoPermFile

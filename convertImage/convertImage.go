@@ -1,23 +1,20 @@
 /*
-Package convert enables to convert between JPEG, PNG and GIF. Also, it can make monochrome image(PGM) from
-color image(JPEG, PNG and GIF).
+Package convert enables to convert between JPEG, PNG and GIF. Also, it can make PNM images(PGM, PPM) from
+ them.
 */
 package convertImage
 
 import (
 	"fmt"
 	"image"
-	"image/color"
 	"image/gif"
 	"image/jpeg"
 	"image/png"
 	"os"
-	"strconv"
-	"strings"
 )
 
 /*
-Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary formats jpg, png, pgm and gif are ignored if arg is specified as directory.
+Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary formats jpg, png, pgm, ppm and gif are ignored if arg is specified as directory.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
@@ -56,6 +53,8 @@ func ConvertImage(arg string, inForm string, outForm string) error {
 			gif.Encode(output[i], img, &gif.Options{NumColors: 256})
 		case PGM:
 			pgmEncode(output[i], img)
+		case PPM:
+			ppmEncode(output[i], img)
 		}
 	}
 	return nil
@@ -76,23 +75,4 @@ func closeAllFiles(input []*os.File, output []*os.File, inCnt int, outCnt int) {
 			fmt.Fprintf(os.Stderr, "%s\n", err)
 		}
 	}
-}
-
-func pgmEncode(file *os.File, img image.Image) {
-	bounds := img.Bounds()
-	dstline := make([]string, bounds.Dx())
-
-	pgmWriteHeader(file, bounds)
-	for y := 0; y < bounds.Dy(); y++ {
-		for x := 0; x < bounds.Dx(); x++ {
-			c := color.GrayModel.Convert(img.At(x, y)).(color.Gray)
-			dstline[x] = strconv.Itoa(int(c.Y))
-		}
-		file.Write([]byte(strings.Join(dstline, " ") + "\n"))
-	}
-}
-
-func pgmWriteHeader(file *os.File, bounds image.Rectangle) {
-	file.Write([]byte("P2\n#gray file\n" + strconv.Itoa(bounds.Dx()) +
-		" " + strconv.Itoa(bounds.Dy()) + "\n255\n"))
 }
