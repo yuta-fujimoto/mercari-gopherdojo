@@ -1,6 +1,5 @@
 /*
-Package convert enables to convert between JPEG, PNG and GIF. Also, it can make PNM images(PGM, PPM) from
- them.
+Package convert enables to convert between JPEG, PNG and GIF. Also, it can create PNM images(PGM, PPM) from them.
 */
 package convertImage
 
@@ -14,7 +13,7 @@ import (
 )
 
 /*
-Convert all image files in directory or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary formats jpg, png, pgm, ppm and gif are ignored if arg is specified as directory.
+Convert all image files in directory path or filepath itself specified as string arg. inForm and outForm are I/O image format. If some sort of error occurs(failed to read directory, invalid format(txt, pdf, etc)), ConvertImage returns proper error and do nothing. Unnecessary formats images jpg, png, pgm, ppm and gif are ignored if arg is specified as directory.
 */
 func ConvertImage(arg string, inForm string, outForm string) error {
 	params, err := initParams(arg, inForm, outForm)
