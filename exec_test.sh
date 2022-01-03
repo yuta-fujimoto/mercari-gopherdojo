@@ -27,6 +27,8 @@ chmod 000 test/NoPermFile/sub/42tokyo_logo.jpg
 mkdir -p test/NoPermDir
 chmod 000 test/NoPermDir
 
+go build
+
 # print result
 function print_result () {
 	printf "GOT:\n$1\n"
